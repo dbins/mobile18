@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="cleartype" content="on">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+	<title>Agenda</title>
+
+	<!--Include JQM and JQ-->
+	<link rel="stylesheet" href="css/themes/jqmfb.min.css" />
+	<link rel="stylesheet" href="css/jquery.mobile.structure.min.css" />
+	<script src="js/jquery.min.js"></script>
+	<script src="js/scripts.js"></script>
+	
+	<!--JQM globals you can edit or remove file entirely... note it needs to be loaded before jquerymobile js -->
+	<script src="js/jqm.globals.js"></script>
+	
+	<script src="js/jquery.mobile.min.js"></script>
+	
+	
+	
+	<!--OWL.CAROUSEL-->
+	<link href="owl-carousel/owl.carousel.css" rel="stylesheet">
+	<link href="owl-carousel/owl.theme.css" rel="stylesheet">
+	<script src="owl-carousel/owl.carousel.js"></script>
+	<style>
+		#owl-demo .item img{
+			display: block;
+			width: 100%;
+			height: auto;
+		}
+		
+		table {
+			width: 100%
+		}
+		th {
+			background: #000000;
+			color:#FFFFFF;
+			border-bottom: 1px solid #d6d6d6;
+			padding: 10px;
+		}
+
+		tr:nth-child(even) {
+			background: #e9e9e9;
+		}
+		
+		.acol .ui-collapsible-heading-collapsed > .ui-collapsible-heading-toggle {
+			background:red !important;
+			text-decoration: none;
+			color: #000000;
+		}
+		.acol .ui-collapsible-heading-toggle {
+			   background:red !important;
+		}
+		
+		
+		.bcol .ui-collapsible-heading-collapsed > .ui-collapsible-heading-toggle {
+			   background:green !important;
+			   text-decoration: none;
+			   color: #000000;
+		}
+		.bcol .ui-collapsible-heading-toggle {
+			   background:green !important;
+		}
+		
+		.ccol .ui-collapsible-heading-collapsed > .ui-collapsible-heading-toggle {
+			   background:yellow !important;
+			   text-decoration: none;
+			   color: #000000;
+		}
+		.ccol .ui-collapsible-heading-toggle {
+			   background:yellow !important;
+		}
+
+		.dcol .ui-collapsible-heading-collapsed > .ui-collapsible-heading-toggle {
+			   background:blue !important;
+		}
+		.dcol .ui-collapsible-heading-toggle {
+			   background:blue !important;
+			   text-decoration: none;
+			   color: #000000;
+		}
+		
+	</style>
+	
+	
+
+	<script type="text/javascript">
+	
+	$(document).ready(function(){
+		  $(".owl-carousel").owlCarousel(
+		  {
+			autoplay:false,
+			margin:10,
+			loop:true,
+			autoWidth:true,
+			autoHeight: true,
+			items:1,
+			responsive:false,
+			nav: false,
+			dots: false
+		});
+	});
+	
+	var horarios=new Array(8);
+	horarios[0]= new Array("09:00 - 10:00", "LIVRE");
+	horarios[1]= new Array("10:00 - 11:00", "OCUPADO");
+	horarios[2]= new Array("11:00 - 12:00", "LIVRE");
+	horarios[3]= new Array("12:00 - 13:00", "INTERVALO");
+	horarios[4]= new Array("13:00 - 14:00", "LIVRE");
+	horarios[5]= new Array("14:00 - 15:00", "LIVRE");
+	horarios[6]= new Array("15:00 - 16:00", "OCUPADO");
+	horarios[7]= new Array("16:00 - 17:00", "OCUPADO");
+	horarios[8]= new Array("17:00 - 18:00", "OCUPADO");
+	
+	
+	function pad(s) { 
+		return (s < 10) ? '0' + s : s; 
+	}
+	
+	function diasemana(data_selecionada){
+		var dia = data_selecionada.getDay();
+		var semana=new Array(6);
+		semana[0]='Domingo';
+		semana[1]='Segunda-Feira';
+		semana[2]='Terça-Feira';
+		semana[3]='Quarta-Feia';
+		semana[4]='Quinta-Feira';
+		semana[5]='Sexta-Feira';
+		semana[6]='Sábado';
+		return semana[dia];
+	}
+	
+	function MontarElementoLista(data_selecionada){
+		var tmp_data = [pad(data_selecionada.getDate()), pad(data_selecionada.getMonth()+1), data_selecionada.getFullYear()].join('/');
+		var semana = diasemana(data_selecionada);
+		var nome_div = [pad(data_selecionada.getDate()), pad(data_selecionada.getMonth()+1), data_selecionada.getFullYear()].join('');
+		var retorno = '<div><h3>' + tmp_data + ' - ' +  semana + '</h3>';
+		retorno = retorno + '<div id="' + nome_div + '" data-role="collapsibleset">';
+		
+		if (semana == "Domingo" || semana == "Sábado"){
+			retorno = retorno + '<div data-role="collapsible" class="dcol">';
+			retorno = retorno + '	<h3>Não haverá atendimento</h3>';
+			retorno = retorno + '	<p>Não existe atendimento</p>';
+			retorno = retorno + '</div>';
+		} else {
+			for	(index = 0; index < horarios.length; index++) {
+				var tmp_array = horarios[index];
+			
+				if (tmp_array[1] == "OCUPADO"){
+					retorno = retorno + '<div data-role="collapsible" class="acol">';
+					retorno = retorno + '	<h3>' + tmp_array[0] + '</h3>';
+					retorno = retorno + '	<p>OCUPADO</p>';
+					retorno = retorno + '</div>';
+				}
+				if (tmp_array[1] == "LIVRE"){
+					retorno = retorno + '<div data-role="collapsible" class="bcol">';
+					retorno = retorno + '	<h3>' + tmp_array[0] + '</h3>';
+					retorno = retorno + '	<p><a href="#" data-role="button"  data-theme="a" data-shadow="true" data-iconshadow="true" data-icon="plus">Agendar</a></p>';
+					retorno = retorno + '</div>';
+				}
+				if (tmp_array[1] == "INTERVALO"){
+					retorno = retorno + '<div data-role="collapsible" class="ccol">';
+					retorno = retorno + '	<h3>' + tmp_array[0] + '</h3>';
+					retorno = retorno + '	<p>INTERVALO</p>';
+					retorno = retorno + '</div>';
+				}
+			
+			}
+		}
+		retorno = retorno + '</div></div>';
+		
+		$("#owl-demo").append(retorno);
+		//$('#' + nome_div).trigger('create');    
+		//$('#' + nome_div).listview('refresh');
+		$('#' + nome_div).collapsibleset().trigger('create');
+	}
+	
+	function MontarLista(){
+		var resultado = "";
+		var d = new Date();
+		var tmp_data = [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+		var semana = diasemana(d);
+		//resultado = tmp_data + " * " + semana + "<br>";
+		resultado = resultado + MontarElementoLista(d);
+		
+		for (i = 1; i < 30 ; i++) { 
+			var days = i;
+			var NovaData = new Date(Date.now()+days*24*60*60*1000);
+			resultado = resultado + MontarElementoLista(NovaData);
+		}
+		//document.getElementById("owl-demo").innerHTML = resultado;
+		//$("#teste_datas").html(resultado);
+		
+	}
+	
+	function MontarAgendamentosMarcados(){
+	
+	
+		var meus_agendamentos=new Array(8);
+		meus_agendamentos[0]= new Array("04/01/2016", "08:00", "09:00", "CONCLUIDO", "0");
+		meus_agendamentos[1]= new Array("08/01/2016", "09:00", "10:00", "AUSENTE", "0");
+		meus_agendamentos[2]= new Array("10/01/2016", "10:00", "11:00", "CONCLUIDO", "0");
+		meus_agendamentos[3]= new Array("12/01/2016", "08:00", "09:00", "CONCLUIDO", "0");
+		meus_agendamentos[4]= new Array("24/01/2016", "08:00", "09:00", "CONCLUIDO", "0");
+		meus_agendamentos[5]= new Array("04/02/2016", "14:00", "15:00", "AUSENTE", "0");
+		meus_agendamentos[6]= new Array("08/02/2016", "17:00", "18:00", "CONCLUIDO", "0");
+		meus_agendamentos[7]= new Array("13/02/2016", "08:00", "09:00", "CONCLUIDO", "0");
+		meus_agendamentos[8]= new Array("14/03/2016", "08:00", "09:00", "CONCLUIDO", "0");
+		MontarElementoListaMeusAgendamentos(meus_agendamentos);
+		
+	}
+	
+	function MontarElementoListaMeusAgendamentos(dados){
+		var retorno = "";
+		for	(index = 0; index < dados.length; index++) {
+			var tmp_array = dados[index];
+			retorno = retorno + '<tr>';
+			retorno = retorno + '	<td>' + tmp_array[0] + '</td>';
+			retorno = retorno + '	<td>' + tmp_array[1] + '</td>';
+			retorno = retorno + '   <td>' + tmp_array[2] + '</td>';
+			retorno = retorno + '	<td>' + tmp_array[3] + '</td>';
+			retorno = retorno + '	<td align="center"><a onClick="return confirmarClique();" href="#"><img src="img/delete.png" width="21" height="19" border="0" title="Excluir" /></a></td>';
+			retorno = retorno + '</tr>';
+		}
+		$("#tabela_meus_agendamentos > tbody").append(retorno);
+		$("#tabela_meus_agendamentos").trigger('create');
+	}
+	</script>
+</head>
+<body>
+
+	<div data-role="page" id="login" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<h1>Login</h1>
+		</div>
+
+		<div data-role="main" id="main_home" class="ui-content">
+			<p><img src="img/fisioagenda.png" width="70%"></p>
+			  <form id="check-contato" data-ajax="false">
+			  <div>
+				<div class="campos100">
+				<label for="email">E-mail:</label>
+				<input type="email" name="email_login" id="email_login" placeholder="Seu email.."><br/>
+				</div>
+				<div class="campos100">
+				<label for="info">Senha:</label>
+				<input type="password" name="senha_login" id="senha_login" placeholder="Sua senha.."><br/><br/>
+				</div>
+			  </div>
+			  <input type="submit" data-inline="true" id="enviar_login" value="Entrar">
+			</form>
+			
+		</div>
+	</div>
+
+	<div data-role="page" id="main" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#menu" data-icon="grid" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>FisioAgenda</h1>
+		</div>
+
+		<div data-role="main" id="main_home" class="ui-content">
+			<p><img src="img/fisioagenda.png" width="70%"></p>
+			<p>&nbsp;</p>
+				<div id="teste_datas"></div>
+				
+				<div class="container">
+					<div id="owl-demo" class="owl-carousel">
+					
+					</div><!--owl demo-->
+				</div><!--container--> 
+		
+		
+			
+		</div>
+	</div>
+	
+	<div data-role="page" id="listar" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#menu" data-icon="grid" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>FisioAgenda</h1>
+		</div>
+
+		<div data-role="main" id="main_home" class="ui-content">
+			<p><img src="img/fisioagenda.png" width="70%"></p>
+			<p>Meus Agendamentos</p>
+			<table id="tabela_meus_agendamentos" width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="tabela">
+				<thead>  
+				  <tr>
+					<th>Agendamento</th>
+					<th>Horário Inicial</th>
+					<th>Horário Final</th>
+					<th class="apagar480">Status</th>
+					<th>Excluir</th>
+				  </tr>
+				</thead>  
+				<tbody>    
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<div data-role="page" id="faleconosco" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#menu" data-icon="grid" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>Fale Conosco</h1>
+		</div>
+
+		<div data-role="main" id="main" class="ui-content">
+			  <p>Mande sua mensagem. Entraremos em contato em breve!</p>
+			  <form id="check-contato" data-ajax="false">
+			  <div>
+				<div class="campos100">
+				<label for="fullname">Seu nome:</label>
+				<input type="text" name="nome_contato" id="nome_contato">
+				</div>
+				<div class="campos100">
+				<label for="email">E-mail:</label>
+				<input type="email" name="email_contato" id="email_contato" placeholder="Seu email.."><br/>
+				</div>
+				<div class="campos100">
+				<label for="info">Sua mensagem:</label>
+				<textarea name="mensagem_contato" id="mensagem_contato" rows="5"></textarea><br/>
+				</div>
+			  </div>
+			  <input type="submit" data-inline="true" id="enviar_contato" value="Enviar">
+			</form>
+		</div>
+
+	</div>
+	
+	<div data-role="page" id="foto" data-theme="a">
+
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<a href="#menu" data-icon="grid" data-corners="false" data-iconpos="notext">Menu</a>
+			<h1>FisioAgenda</h1>
+		</div>
+
+		<div data-role="main" id="main_fotos" class="ui-content">
+			<p><img src="img/fisioagenda.png" width="70%"></p>
+			<p>&nbsp;</p>
+			<div id="content_news">
+			Aguarde o seu dispositivo abrir a câmera para tirar a foto.
+			</div>
+		
+		
+			
+		</div>
+	</div>
+	
+	<div data-role="page" id="menu" data-theme="a">
+		<div data-role="header" data-position="fixed" data-tap-toggle="false" data-update-page-padding="false">
+			<h1>Menu</h1>
+		</div>
+
+		<div data-role="main" id="main_menu" class="ui-content">
+
+			<img src="img/logotipo_menu.png" width="250">
+			<a href="#main" data-role="button"  data-theme="a" data-shadow="true" data-iconshadow="true" data-icon="home">Agendar</a>
+			<a href="#listar"  data-role="button"  data-theme="a" data-shadow="true" data-iconshadow="true" data-icon="search">Meus Agendamentos</a>
+			<a href="#foto"  data-role="button"  data-theme="a" data-shadow="true" data-iconshadow="true" data-icon="gear">Enviar Foto</a>
+			<a href="#faleconosco"  data-role="button"  data-theme="a" data-shadow="true" data-iconshadow="true" data-icon="star">Enviar Mensagem</a>
+			
+		</div>
+
+	</div>
+	
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript">
+		MontarLista();
+		MontarAgendamentosMarcados();
+        //$(document).ready(onDeviceReady());
+    </script>
+</body>
+</html>
