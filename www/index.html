@@ -51,35 +51,43 @@
 		}
 		
 		.acol .ui-collapsible-heading-collapsed > .ui-collapsible-heading-toggle {
-			background:red !important;
+			background:#ff8080 !important;
 			text-decoration: none;
 			color: #000000;
 		}
 		.acol .ui-collapsible-heading-toggle {
-			   background:red !important;
+			   background: #ff8080 !important;
+			   text-decoration: none;
+				color: #000000;
 		}
 		
 		
 		.bcol .ui-collapsible-heading-collapsed > .ui-collapsible-heading-toggle {
-			   background:green !important;
+			   background:#b3ffb3 !important;
 			   text-decoration: none;
 			   color: #000000;
 		}
 		.bcol .ui-collapsible-heading-toggle {
-			   background:green !important;
+			   background:#b3ffb3 !important;
+			   text-decoration: none;
+				color: #000000;
 		}
 		
 		.ccol .ui-collapsible-heading-collapsed > .ui-collapsible-heading-toggle {
-			   background:yellow !important;
+			   background:#ffffcc !important;
 			   text-decoration: none;
 			   color: #000000;
 		}
 		.ccol .ui-collapsible-heading-toggle {
-			   background:yellow !important;
+			   background:#ffffcc !important;
+			   text-decoration: none;
+			   color: #000000;
 		}
 
 		.dcol .ui-collapsible-heading-collapsed > .ui-collapsible-heading-toggle {
 			   background:blue !important;
+			   text-decoration: none;
+				color: #000000;
 		}
 		.dcol .ui-collapsible-heading-toggle {
 			   background:blue !important;
@@ -142,7 +150,7 @@
 		var semana = diasemana(data_selecionada);
 		var nome_div = [pad(data_selecionada.getDate()), pad(data_selecionada.getMonth()+1), data_selecionada.getFullYear()].join('');
 		var retorno = '<div><h3>' + tmp_data + ' - ' +  semana + '</h3>';
-		retorno = retorno + '<div id="' + nome_div + '" data-role="collapsibleset">';
+		retorno = retorno + '<div id="' + nome_div + '" data-role="collapsible-set">';
 		
 		if (semana == "Domingo" || semana == "Sábado"){
 			retorno = retorno + '<div data-role="collapsible" class="dcol">';
