@@ -114,6 +114,8 @@
 			isConnected = false;
 		}
 		
+	
+		
 		
 		$(document).on('pageinit', '#faleconosco', function(){  
         $(document).on('click', '#enviar_contato', function() { // catch the form's submit event
@@ -147,6 +149,17 @@
 				$('#mensagem_contato').css(field_tag_css);
 				continuar = false;
 			}
+			
+			if (isPhoneGapReady){
+				if (isConnected) {
+					//Continuar
+				} else {
+					continuar = false;
+				}				
+			} else {
+				continuar = false;
+			}
+		
 			
 		
 			if (continuar){
