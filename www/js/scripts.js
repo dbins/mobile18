@@ -166,7 +166,7 @@
 				// Send data to server through the ajax call
 				// action is functionality we want to call and outputJSON is our data
 				//formData : $('#check-contato').serialize()
-					$.ajax({url: 'http://www.fisioagenda.com.br/xml/ajax_contato.php',
+					$.ajax({url: 'http://www.fisioagenda.hospedagemdesites.ws/xml/ajax_contato.php',
 						data: {action : 'enviar', nome: $('#nome_contato').val(), email: $('#email_contato').val(), ddd_telefone: '00', numero_telefone: '00000000', mensagem: $('#mensagem_contato').val()},
 						type: 'post',                   
 						async: 'true',
@@ -279,7 +279,7 @@
 		
 		//Comunicacao com o webservice
 		function CancelarAgendamento(codigo_agenda) {
-			$.ajax({url: 'http://www.fisioagenda.com.br/xml/ajax_cancelar_agenda.php',
+			$.ajax({url: 'http://www.fisioagenda.hospedagemdesites.ws/xml/ajax_cancelar_agenda.php',
 			data: {action : 'enviar', codigo: codigo_agenda, entidade: codigo_entidade},
 			type: 'post',                   
 			async: 'true',
@@ -316,7 +316,7 @@
 		}
 		
 		function ConfirmarAgendamento(codigo_agenda) {
-			$.ajax({url: 'http://www.fisioagenda.com.br/xml/ajax_adicionar_agenda.php',
+			$.ajax({url: 'http://www.fisioagenda.hospedagemdesites.ws/xml/ajax_adicionar_agenda.php',
 			data: {action : 'enviar', codigo: codigo_agenda, entidade: codigo_entidade},
 			type: 'post',                   
 			async: 'true',
@@ -355,7 +355,7 @@
 		function AgendamentosMarcados() {
 			$.ajax({
 				type: "GET",
-				url: 'http://www.fisioagenda.com.br/xml/xml_lista.php',
+				url: 'http://www.fisioagenda.hospedagemdesites.ws/xml/xml_lista.php',
 				data: {action : 'enviar', codigo: codigo_entidade},
 				dataType: "xml",
 				success: function(data) {
@@ -379,7 +379,7 @@
 		function ListarAgenda() {
 			$.ajax({
 				type: "GET",
-				url: 'http://www.fisioagenda.com.br/xml/xml_agenda.php',
+				url: 'http://www.fisioagenda.hospedagemdesites.ws/xml/xml_agenda.php',
 				data: {action : 'enviar', codigo: codigo_entidade},
 				dataType: "xml",
 				success: function(data) {
@@ -409,7 +409,7 @@
 		}
 		
 		function ValidarLogin(login_informado, senha_informada) {
-			$.ajax({url: 'http://www.fisioagenda.com.br/xml/ajax_login.php',
+			$.ajax({url: 'http://www.fisioagenda.hospedagemdesites.ws/xml/ajax_login.php',
 			data: {acao : 'entrar', login: login_informado, senha: senha_informada},
 			type: 'post',                   
 			async: 'true',
@@ -522,7 +522,7 @@
 			options.params = params;
 			
 			var ft = new FileTransfer();
-			ft.upload(fileURI, encodeURI("http://www.fisioagenda.com.br/xml/upload_foto.php"), win, fail, options);
+			ft.upload(fileURI, encodeURI("http://www.fisioagenda.hospedagemdesites.ws/xml/upload_foto.php"), win, fail, options);
 		}
 		 
 		function capturePhoto() {
