@@ -5,7 +5,7 @@
 		var arrayAgenda = [];
 		
 		function confirmarClique() {
-			if(confirm("Você deseja excluir este registro?")) {
+			if(confirm("Deseja excluir este registro?")) {
 				return true;
 			} else {
 				return false;

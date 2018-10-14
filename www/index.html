@@ -230,9 +230,7 @@
 		for	(index = 0; index < dados.length; index++) {
 			var tmp_array = dados[index];
 			retorno = retorno + '<tr>';
-			retorno = retorno + '	<td>' + tmp_array[0] + '</td>';
-			retorno = retorno + '	<td>' + tmp_array[1] + '</td>';
-			retorno = retorno + '   <td>' + tmp_array[2] + '</td>';
+			retorno = retorno + '	<td><strong>' + tmp_array[0] + '</strong><br/><font style="font-size:12px" color=#FF0000>' + tmp_array[1] + ' - ' + tmp_array[2]  + '</font></td>';
 			retorno = retorno + '	<td>' + tmp_array[3] + '</td>';
 			retorno = retorno + '	<td align="center"><a onClick="return confirmarClique();" href="#"><img src="img/delete.png" width="21" height="19" border="0" title="Excluir" /></a></td>';
 			retorno = retorno + '</tr>';
@@ -306,8 +304,6 @@
 				<thead>  
 				  <tr>
 					<th>Agendamento</th>
-					<th>Horário Inicial</th>
-					<th>Horário Final</th>
 					<th class="apagar480">Status</th>
 					<th>Excluir</th>
 				  </tr>
